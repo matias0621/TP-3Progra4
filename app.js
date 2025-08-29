@@ -354,6 +354,80 @@ mostrarAlumnos(promedioAlumnos)
 let alumnosAprobadosLista = alumnosAprobados(promedioAlumnos)
 mostrarAlumnos(alumnosAprobadosLista)
 
+// ----------------- Ejercicio 14 -------------------------------- //
+
+let productosEjercicio14 = [
+  { id: 1, nombre: "Laptop Gamer", precio: 1200, stock: 10 },
+  { id: 2, nombre: "Auriculares Inalámbricos", precio: 80, stock: 35 },
+  { id: 3, nombre: "Mouse Gamer", precio: 45, stock: 50 },
+  { id: 4, nombre: "Teclado Mecánico", precio: 100, stock: 20 },
+  { id: 5, nombre: "Monitor 24''", precio: 250, stock: 15 }
+];
+
+function comprar(id, cantidad, callbackExito, callbackError){
+    let producto = productosEjercicio14.find(p => p.id === id)
+
+    if (producto === undefined){
+        return callbackError("Producto no encontrado")
+    }
+
+    if (producto.stock < cantidad){
+        return callbackError("Stock insuficiente")
+    }
+
+    producto.stock -= cantidad
+    callbackExito(`Compra efectuada: ${producto.nombre} - ${producto.stock} - ${producto.precio * cantidad}`)
+}
+
+function callbackExitoso(msg){
+    console.log(msg)
+}
+
+function callbackDeFracaso(msg){
+    console.log(msg)
+}
+
+comprar(1, 4, callbackExitoso, callbackDeFracaso)
+comprar(2, 10000, callbackExitoso, callbackDeFracaso)
+
+
+// ----------------- Ejercicio 14 -------------------------------- //
+
+function aplicarDescuento(id, porcentaje, callbackExito, callbackError){
+    let producto = productosEjercicio14.find(p => p.id === id)
+
+    if (producto === undefined){
+        return callbackError("Producto no encontrado")
+    }
+
+    if (porcentaje < 0 || porcentaje > 100){
+        return callbackError("Descuento invalido")
+    }
+
+    producto.precio = producto.precio * (porcentaje/100)
+    callbackExito(`Descuento exitoso: ${producto.nombre} - ${producto.precio}$`)
+    
+}
+
+aplicarDescuento(1, 30, callbackExitoso, callbackDeFracaso)
+aplicarDescuento(123, 30, callbackExitoso, callbackDeFracaso)
+aplicarDescuento(1, 3000, callbackExitoso, callbackDeFracaso)
+
+// ----------------- Ejercicio 14 -------------------------------- //
+
+function filtrarPorStock(minStock, callbackExito, callbackError){
+    let productosFiltrado = productosEjercicio14.filter(p => p.stock >= minStock)
+    if (productosFiltrado.length === 0){
+        return callbackError("No hay productos con ese stock")
+    }
+
+    callbackExito(productosFiltrado)
+}
+
+filtrarPorStock(50, callbackExitoso, callbackDeFracaso)
+filtrarPorStock(50000, callbackExitoso, callbackDeFracaso)
+
+
 
 
 
