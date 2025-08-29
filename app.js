@@ -168,7 +168,7 @@ console.log(ordenadoDescendentes)
 
 // ----------------- Ejercicio 9 -------------------------------- //
 let productoVendibles = {
-    productos : [
+    productos: [
         {
             id: 1,
             nombre: "Teclado Mecánico",
@@ -190,7 +190,7 @@ let productoVendibles = {
             stock: 5
         }
     ],
-    vender: function(idProducto, cantidad){
+    vender: function (idProducto, cantidad) {
         let producto = productoVendibles.productos.find(p => p.id === idProducto)
         if (producto.stock < cantidad) {
             console.log("Stock insuficiente")
@@ -205,6 +205,154 @@ let productoVendibles = {
 
 productoVendibles.vender(4, 8)
 
+// ----------------- Ejercicio 10 -------------------------------- //
+
+let carrito = []
+const productosEjercicio10 = [
+    { producto: "Teclado mecánico", cantidad: 2, precioUnitario: 45000 },
+    { producto: "Mouse gamer", cantidad: 1, precioUnitario: 38000 },
+    { producto: "Pad mouse XL", cantidad: 3, precioUnitario: 12000 },
+    { producto: "Auriculares inalámbricos", cantidad: 4, precioUnitario: 52000 },
+    { producto: "Monitor 27''", cantidad: 1, precioUnitario: 210000 },
+    { producto: "Silla gamer", cantidad: 2, precioUnitario: 150000 },
+    { producto: "Parlantes bluetooth", cantidad: 5, precioUnitario: 30000 },
+    { producto: "Webcam HD", cantidad: 2, precioUnitario: 25000 },
+    { producto: "Disco SSD 1TB", cantidad: 3, precioUnitario: 95000 },
+    { producto: "Placa de video RTX 4070", cantidad: 1, precioUnitario: 820000 }
+];
+
+function agregarObjetoCarrito(producto) {
+    carrito.push(producto)
+}
+
+function calcularTotalProducto() {
+    let total = carrito.reduce((acc, producto) => acc + producto.precioUnitario * producto.cantidad, 0)
+    return total
+}
+
+function detalleCompra() {
+    return carrito.map((producto) => `Producto: ${producto.producto} - Cantidad: ${producto.cantidad} - Subtotal: ${producto.precioUnitario * producto.cantidad}`)
+}
+agregarObjetoCarrito(productosEjercicio10[2])
+agregarObjetoCarrito(productosEjercicio10[1])
+agregarObjetoCarrito(productosEjercicio10[4])
+agregarObjetoCarrito(productosEjercicio10[8])
+agregarObjetoCarrito(productosEjercicio10[5])
+console.log(carrito)
+
+console.log("Detalle de compra: " + detalleCompra())
+console.log("Total de compra: " + calcularTotalProducto())
+
+// ----------------- Ejercicio 11 -------------------------------- //
+let libros = [
+    { id: 1, titulo: "Cien años de soledad", autor: "Gabriel García Márquez", genero: "Realismo mágico", disponible: true },
+    { id: 2, titulo: "1984", autor: "George Orwell", genero: "Distopía", disponible: false },
+    { id: 3, titulo: "Don Quijote de la Mancha", autor: "Miguel de Cervantes", genero: "Clásico", disponible: true },
+    { id: 4, titulo: "El Hobbit", autor: "J.R.R. Tolkien", genero: "Fantasía", disponible: true },
+    { id: 5, titulo: "Fahrenheit 451", autor: "Ray Bradbury", genero: "Ciencia ficción", disponible: false },
+    { id: 6, titulo: "Orgullo y prejuicio", autor: "Jane Austen", genero: "Romance", disponible: true },
+    { id: 7, titulo: "La sombra del viento", autor: "Carlos Ruiz Zafón", genero: "Misterio", disponible: true },
+    { id: 8, titulo: "Crónica de una muerte anunciada", autor: "Gabriel García Márquez", genero: "Novela", disponible: false },
+    { id: 9, titulo: "Los juegos del hambre", autor: "Suzanne Collins", genero: "Distopía", disponible: true },
+    { id: 10, titulo: "It", autor: "Stephen King", genero: "Terror", disponible: true }
+];
+
+function obtenerGenero(genero) {
+    return libros.filter((libro) => libro.genero === genero)
+}
+
+function arregloDeLibroEnMayuscula() {
+    return libros.map((libro) => libro.titulo.toUpperCase())
+}
+
+function prestarLibro(libroId) {
+    let libroEncontrado = libros.find(libro => libro.id === libroId && libro.disponible)
+    if (libroEncontrado === undefined) {
+        console.log("No disponible")
+    }
+    else {
+        console.log("Prestado")
+        libroEncontrado.disponible = false
+    }
+}
+
+console.log(obtenerGenero("Distopía"))
+console.log(arregloDeLibroEnMayuscula())
+prestarLibro(1)
+prestarLibro(2)
+
+// ----------------- Ejercicio 12 -------------------------------- //
+let agenda = {
+    contactos: [
+        { id: 1, nombre: "Ana Pérez", telefono: "1123456789" },
+        { id: 2, nombre: "Juan López", telefono: "1134567890" },
+        { id: 3, nombre: "María García", telefono: "1145678901" },
+        { id: 4, nombre: "Carlos Díaz", telefono: "1156789012" },
+        { id: 5, nombre: "Lucía Fernández", telefono: "1167890123" }
+    ]
+};
+
+function agregarContacto(contacto) {
+    agenda.contactos.push(contacto)
+}
+
+function eliminarContacto(id) {
+    agenda.contactos = agenda.contactos.filter(contacto => contacto.id != id)
+}
+
+function buscarContactoPorNombre(nombre) {
+    return agenda.contactos.find(contacto => contacto.nombre === nombre)
+}
+
+function mostrarContactos() {
+    console.log(agenda.contactos)
+}
+
+agregarContacto({ id: 6, nombre: "Marcos Fernández", telefono: "9876543210" })
+
+mostrarContactos()
+eliminarContacto(4)
+mostrarContactos()
+
+// ----------------- Ejercicio 13 -------------------------------- //
+
+const alumnos = [
+    { id: 1, nombre: "Ana Pérez", notas: [8, 9, 7, 10] },
+    { id: 2, nombre: "Juan López", notas: [6, 5, 7, 8] },
+    { id: 3, nombre: "María García", notas: [9, 9, 10, 8] },
+    { id: 4, nombre: "Carlos Díaz", notas: [4, 6, 5, 7] },
+    { id: 5, nombre: "Lucía Fernández", notas: [10, 10, 9, 9] }
+];
+
+function promedioDeLosAlumnos() {
+    let promedios = alumnos.map(alumno => {
+        let suma = alumno.notas.reduce((acc, nota) => acc + nota, 0);
+        let promedio = suma / alumno.notas.length;
+
+        return {
+            id: alumno.id,
+            nombre: alumno.nombre,
+            promedio: promedio
+        };
+    });
+    return promedios
+}
+
+function alumnosAprobados(promedios) {
+    let alumnos = promedios.map(alumnos => {
+        if (alumnos.promedio >= 6) return alumnos
+    })
+    return alumnos
+}
+
+function mostrarAlumnos(alumnos){
+    console.log(alumnos)
+}
+
+let promedioAlumnos = promedioDeLosAlumnos()
+mostrarAlumnos(promedioAlumnos)
+let alumnosAprobadosLista = alumnosAprobados(promedioAlumnos)
+mostrarAlumnos(alumnosAprobadosLista)
 
 
 
